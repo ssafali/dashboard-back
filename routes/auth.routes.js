@@ -18,10 +18,11 @@ const saltRounds = 10;
 
 // POST /auth/signup  - Creates a new user in the database
 router.post("/signup", (req, res, next) => {
-  const { email, password, name } = req.body;
+  console.log("hello");
 
+  const { email, password, userName, location } = req.body;
   // Check if email or password or name are provided as empty strings
-  if (email === "" || password === "" || name === "") {
+  if (email === "" || password === "" || userName === "") {
     res.status(400).json({ message: "Provide email, password and name" });
     return;
   }
@@ -58,7 +59,7 @@ router.post("/signup", (req, res, next) => {
 
       // Create the new user in the database
       // We return a pending promise, which allows us to chain another `then`
-      return User.create({ email, password: hashedPassword, name });
+      return User.create({ email, password: hashedPassword, userName, location });
     })
     .then((createdUser) => {
       // Deconstruct the newly created user object to omit the password
@@ -123,7 +124,7 @@ router.get("/verify", isAuthenticated, (req, res, next) => {
   // If JWT token is valid the payload gets decoded by the
   // isAuthenticated middleware and is made available on `req.payload`
   // console.log(`req.payload`, req.payload);
-
+  
   // Send back the token payload object containing the user data
   res.status(200).json(req.payload);
 });

@@ -9,12 +9,13 @@ const userSchema = new Schema(
       unique: true,
       lowercase: true,
       trim: true,
+      verified: false,
     },
     password: {
       type: String,
       required: [true, "Password is required."],
     },
-    name: {
+    userName: {
       type: String,
       required: [true, "Name is required."],
     },
