@@ -21,7 +21,7 @@ const userSchema = new Schema(
     },
     location: {
       type: String,
-      required: [false]
+      default: "berlin, de"
     },
     toDo: [{type: Schema.Types.ObjectId, ref: "ToDo"}],
     notes: [{type: Schema.Types.ObjectId, ref: "Notes"}]
