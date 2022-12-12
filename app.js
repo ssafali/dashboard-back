@@ -17,15 +17,15 @@ require("./config")(app);
 // Handling routes here
 
 const authRoutes = require("./routes/auth.routes");
-app.use("/auth", authRoutes);
+app.use("/auth", authRoutes, isAuthenticated);
 
 // Routes for the dashboard content
 const toDoRouter = require("./routes/toDo.routes")
-app.use("/", toDoRouter)
-const notesRouter = require("./routes/notes.routes");
-app.use("/api", isAuthenticated, notesRouter)
+app.use("/", isAuthenticated, toDoRouter)
+// const notesRouter = require("./routes/notes.routes");
+// app.use("/api", isAuthenticated, notesRouter)
 const userRouter = require('./routes/user.routes')
-app.use('/', userRouter)
+app.use('/', userRouter, isAuthenticated)
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);

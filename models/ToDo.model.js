@@ -12,6 +12,9 @@ const toDoSchema = new Schema(
         },
         category: {
             type: String
+        },
+        user:{
+            type: Schema.Types.ObjectId, ref: "User"
         }
     },  
     {

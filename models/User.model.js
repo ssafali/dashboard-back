@@ -23,8 +23,6 @@ const userSchema = new Schema(
       type: String,
       default: "berlin, de"
     },
-    toDo: [{type: Schema.Types.ObjectId, ref: "ToDo"}],
-    notes: [{type: Schema.Types.ObjectId, ref: "Notes"}]
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
