@@ -21,9 +21,11 @@ app.use("/auth", authRoutes);
 
 // Routes for the dashboard content
 const toDoRouter = require("./routes/toDo.routes")
-app.use("/api", isAuthenticated, toDoRouter)
+app.use("/", toDoRouter)
 const notesRouter = require("./routes/notes.routes");
 app.use("/api", isAuthenticated, notesRouter)
+const userRouter = require('./routes/user.routes')
+app.use('/', userRouter)
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);

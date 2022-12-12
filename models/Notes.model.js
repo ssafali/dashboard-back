@@ -9,7 +9,10 @@ const notesSchema = new Schema(
         },
         content: {
             type: String
-        },
+        }, 
+        category: {
+            type: String
+        }
     },
     {
         timestamps: true
