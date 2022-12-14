@@ -3,22 +3,19 @@ const router = express.Router();
 const mongoose = require("mongoose");
 
 const Todo = require("../models/ToDo.model");
-const User = require("../models/User.model");
 
 // Get all todos
 router.get('/todos/:_id', async (req, res) => {
     const _id = req.params._id
-    console.log('The id!!!!!!!!!!!:', _id)
     const todos = await Todo.find({user: _id});
     res.json(todos)
 })
 
 // Add a new todo
 router.post('/todos/new', (req, res, next) => {
-    const {title,content,category, user} = req.body;
-    
+    const {content, user} = req.body;
     Todo
-    .create({title, content, category, user: mongoose.Types.ObjectId(user)})
+    .create({content, user: mongoose.Types.ObjectId(user)})
     .then((data) => {
         console.log("Added successfully!")
         res.status(201).json(data);
@@ -26,11 +23,16 @@ router.post('/todos/new', (req, res, next) => {
     .catch((err) => console.log('Error', err));
 })
 
-// Edit a note
-router.post('/todos/edit/:todoId', (req, res, next) => {
-    const {_id, title, content, category} = req.params
-    Todo.findByIdAndUpdate(
-        _id, {title, content, category})
+// Edit completed
+router.post('/todos/edit/', (req, res, next) => {
+    const {user} = req.body
+    const{completed} = req.body.completed
+    console.log(req.body.completed)
+    Todo.updateOne({
+        _id: new mongoose.Types.ObjectId(req.body.id),
+        user: new mongoose.Types.ObjectId(user),
+    },
+        {completed: req.body.completed})
         .then(() => res.send("Updated succesfully!"))
         .catch((err) => console.log(err));
     })

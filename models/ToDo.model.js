@@ -2,20 +2,15 @@ const { Schema, model } = require("mongoose");
 
 const toDoSchema = new Schema(
     {
-        title: {
-            type: String,
-            required: [true, "Title is required."],
-            trim: true
-        },
         content: {
             type: String
         },
-        category: {
-            type: String
+        completed:{
+            type: Boolean, default:false, required:true
         },
         user:{
             type: Schema.Types.ObjectId, ref: "User"
-        }
+        }  
     },  
     {
         timestamps: true
