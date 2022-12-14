@@ -9,7 +9,6 @@ router.get("/users/:_id", (req, res, next)=>{
     User.findById(_id)
     .then((user)=>{
         res.json({user});
-        console.log(user)
     })
     .catch(err => {
         console.log(err);

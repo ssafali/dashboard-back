@@ -24,24 +24,22 @@ router.post('/todos/new', (req, res, next) => {
 })
 
 // Edit completed
-router.post('/todos/edit/', (req, res, next) => {
-    const {user} = req.body
-    const{completed} = req.body.completed
-    console.log(req.body.completed)
-    Todo.updateOne({
-        _id: new mongoose.Types.ObjectId(req.body.id),
-        user: new mongoose.Types.ObjectId(user),
-    },
-        {completed: req.body.completed})
-        .then(() => res.send("Updated succesfully!"))
+router.post('/todos/edit', (req, res, next) => {
+    const {id , completed} = req.body
+    Todo.findByIdAndUpdate(id, {completed}, {new:true} )
+        .then((changedTodo) => res.json(changedTodo))
         .catch((err) => console.log(err));
     })
 
 // Delete a note
-router.post('/todos/delete/:id', (req, res, next) => {
-    const { _id } = req.params
-    Todo.findByIdAndDelete(_id)
-        .then(() => res.send("Deleted successfully!"))
+router.delete('/todos/delete/:id', (req, res, next) => {
+    const { id } = req.params
+
+    if(!mongoose.Types.ObjectId.isValid(id)) {
+        res.status(400).json({message: "Specified id is not valid"})
+    }
+    Todo.findByIdAndDelete(id)
+        .then(() => res.json({message: `Todo with ${id} has been removed successfully`}))
         .catch((err) => console.log(err));
     })
 
