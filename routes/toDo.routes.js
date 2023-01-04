@@ -1,14 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
-
 const Todo = require("../models/ToDo.model");
 
 // Get all todos
 router.get('/todos/:_id', async (req, res) => {
     const _id = req.params._id
     const todos = await Todo.find({user: _id});
-    res.json(todos)
+    res.json(todos);
 })
 
 // Add a new todo
@@ -31,7 +30,7 @@ router.post('/todos/edit', (req, res, next) => {
         .catch((err) => console.log(err));
     })
 
-// Delete a note
+// Delete a to do
 router.delete('/todos/delete/:id', (req, res, next) => {
     const { id } = req.params
 

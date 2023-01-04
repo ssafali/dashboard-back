@@ -21,9 +21,11 @@ app.use("/auth", authRoutes, isAuthenticated);
 
 // Routes for the dashboard content
 const toDoRouter = require("./routes/toDo.routes")
-app.use("/", isAuthenticated, toDoRouter)
-// const notesRouter = require("./routes/notes.routes");
-// app.use("/api", isAuthenticated, notesRouter)
+app.use("/", toDoRouter, isAuthenticated)
+
+const notesRouter = require("./routes/notes.routes");
+app.use("/", notesRouter, isAuthenticated)
+
 const userRouter = require('./routes/user.routes')
 app.use('/', userRouter, isAuthenticated)
 

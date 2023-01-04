@@ -11,8 +11,16 @@ const notesSchema = new Schema(
             type: String
         }, 
         category: {
-            type: String
-        }
+            type: String,
+            default:'general'
+        },
+        pinned: {
+            type: Boolean,
+            default: false
+        },
+        user:{
+            type: Schema.Types.ObjectId, ref: "User"
+        }  
     },
     {
         timestamps: true
